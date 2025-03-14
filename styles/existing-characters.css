@@ -1,0 +1,312 @@
+/* Existing Characters Styles */
+.existing-characters-page {
+  padding: 2rem 0;
+}
+
+.existing-characters-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.no-characters {
+  text-align: center;
+  padding: 3rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.no-characters p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+/* Character Cards */
+.characters-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.character-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.character-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.character-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.character-details {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.last-played {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.character-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.character-actions button {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.create-new {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn.danger-btn {
+  background: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
+}
+
+.btn.danger-btn:hover {
+  background: #c82333;
+  border-color: #bd2130;
+}
+
+/* Irksal bonusları göstermek için yeni stiller */
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 2px;
+}
+
+.totalScore {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  border-top: 1px solid rgba(240, 167, 66, 0.3);
+  padding-top: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+/* Modal styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContent {
+  background: rgba(25, 25, 35, 0.95);
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(240, 167, 66, 0.2);
+  border: 1px solid rgba(240, 167, 66, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(240, 167, 66, 0.2);
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 2rem;
+  background: linear-gradient(45deg, #f0f0f0, #f8d12f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Cinzel', serif;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.characterSummary {
+  padding: 2rem;
+}
+
+.characterType {
+  font-size: 1.2rem;
+  color: #f0a742;
+  margin-bottom: 1.5rem;
+}
+
+.abilitiesSummary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.abilitySummaryItem {
+  background: rgba(30, 30, 50, 0.6);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.abilityName {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.abilityScore {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 2px;
+}
+
+.totalScore {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  border-top: 1px solid rgba(240, 167, 66, 0.3);
+  padding-top: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.abilityMod {
+  color: #aaa;
+}
+
+.traitsList,
+.abilitiesList,
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.abilitiesList li {
+  margin-bottom: 0.5rem;
+}
+
+.abilitiesList strong {
+  color: #f0a742;
+}
+
+.backgroundText {
+  color: #ccc;
+  font-style: italic;
+  line-height: 1.6;
+}
+/* Spells Display Styles */
+.spellsSubheader {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin: 1.5rem 0 0.8rem;
+  border-bottom: 1px solid rgba(240, 167, 66, 0.2);
+  padding-bottom: 0.4rem;
+}
+
+.spellsList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.spellItem {
+  background: rgba(30, 30, 50, 0.5);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid rgba(240, 167, 66, 0.4);
+  transition: all 0.2s ease;
+}
+
+.spellItem:hover {
+  background: rgba(40, 40, 60, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(3px);
+}
+
+.spellName {
+  display: block;
+  font-weight: 600;
+  color: #f0a742;
+  margin-bottom: 0.3rem;
+}
+
+.autoSpellIcon {
+  font-size: 0.9rem;
+  vertical-align: super;
+  margin-left: 5px;
+  color: #f0a742;
+}
+
+.spellMeta {
+  font-size: 0.9rem;
+  color: #bbb;
+  font-style: italic;
+}

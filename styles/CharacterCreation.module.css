@@ -1,0 +1,1297 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    color: #e0e0e0;
+  }
+  
+  .creatorHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #f8d12f, #f0a742);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    font-family: 'Cinzel', serif;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-bottom: 1.5rem;
+  }
+  
+  .divider {
+    height: 4px;
+    width: 100px;
+    background: linear-gradient(90deg, transparent, #f0a742, transparent);
+    margin: 0 auto;
+  }
+  
+  /* Progress Steps */
+  .stepsProgress {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 3rem;
+    max-width: 700px;
+    position: relative;
+  }
+  
+  .stepsProgress::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    right: 25px;
+    height: 3px;
+    background: rgba(240, 167, 66, 0.2);
+    z-index: 0;
+  }
+  
+  .step {
+    background: rgba(20, 20, 35, 0.8);
+    border: 2px solid rgba(240, 167, 66, 0.3);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+  
+  .step::after {
+    content: attr(data-label);
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    color: rgba(240, 167, 66, 0.7);
+    transition: color 0.3s ease;
+  }
+  
+  .step.active {
+    background: #f0a742;
+    border-color: #f8d12f;
+    box-shadow: 0 0 15px rgba(240, 167, 66, 0.5);
+  }
+  
+  .step.active::after {
+    color: #f0a742;
+    font-weight: 600;
+  }
+  
+  .step.completed {
+    background: rgba(240, 167, 66, 0.8);
+    border-color: #f8d12f;
+  }
+  
+  /* Content */
+  .creatorContent {
+    background-color: rgba(20, 20, 35, 0.8);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .creatorStep h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #f0a742;
+    font-family: 'Cinzel', serif;
+    border-bottom: 2px solid rgba(240, 167, 66, 0.3);
+    padding-bottom: 0.75rem;
+  }
+  
+  .creatorStep > p {
+    margin-bottom: 1.8rem;
+    color: #bbb;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  
+  /* Form Elements */
+  .formGroup {
+    margin-bottom: 1.8rem;
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+    color: #f0a742;
+  }
+  
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: rgba(30, 30, 50, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #e0e0e0;
+    transition: all 0.2s ease;
+  }
+  
+  .formGroup input:focus,
+  .formGroup select:focus,
+  .formGroup textarea:focus {
+    border-color: #f0a742;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(240, 167, 66, 0.2);
+  }
+  
+  /* Race and Class Info */
+  .infoCard {
+    background: rgba(30, 30, 50, 0.6);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(240, 167, 66, 0.2);
+  }
+  
+  .infoCard h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #f0a742;
+  }
+  
+  .infoCard h4 {
+    margin: 1.2rem 0 0.6rem;
+    font-size: 1.1rem;
+    color: #ddd;
+  }
+  
+  .infoCard ul {
+    list-style: none;
+    padding-left: 0.5rem;
+  }
+  
+  .infoCard ul li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .infoCard ul li:before {
+    content: "•";
+    color: #f0a742;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+  
+  /* Ability Scores */
+  .abilitiesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .abilityItem {
+    background: rgba(30, 30, 50, 0.6);
+    border-radius: 8px;
+    padding: 1.2rem;
+    border: 1px solid rgba(240, 167, 66, 0.1);
+  }
+  
+  .abilityItem label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: #f0a742;
+  }
+  
+  .abilityControls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  
+  .abilityControls button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(240, 167, 66, 0.8);
+    color: #1a1a2e;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  }
+  
+  .abilityControls button:hover:not(:disabled) {
+    background: #f0a742;
+    transform: scale(1.05);
+  }
+  
+  .abilityControls button:disabled {
+    background: rgba(120, 120, 120, 0.3);
+    cursor: not-allowed;
+  }
+  
+  .abilityControls input {
+    width: 60px;
+    text-align: center;
+    margin: 0 0.8rem;
+    padding: 0.6rem;
+    background-color: rgba(20, 20, 35, 0.7);
+    border: 1px solid rgba(240, 167, 66, 0.3);
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f0a742;
+  }
+  
+  .abilityModifier {
+    font-size: 0.95rem;
+    color: #bbb;
+  }
+  
+  /* Character Summary */
+  .characterSummary {
+    background: rgba(30, 30, 50, 0.6);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(240, 167, 66, 0.2);
+  }
+  
+  .characterSummary h3 {
+    margin-bottom: 1rem;
+    color: #f0a742;
+    font-size: 1.6rem;
+  }
+  
+  .characterSummary h4 {
+    margin: 1.2rem 0 0.6rem;
+    color: #ddd;
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(240, 167, 66, 0.2);
+    padding-bottom: 0.4rem;
+  }
+  
+  
+  
+  
+  
+  
+  
+  .abilityScore {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.3rem 0;
+    color: #f0a742;
+  }
+  
+  .abilityMod {
+    font-size: 1rem;
+    color: #ddd;
+  }
+  
+  /* Form Actions */
+  .formActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+  }
+  
+  .buttonPrimary,
+  .buttonSecondary {
+    padding: 0.9rem 1.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+  }
+  
+  .buttonPrimary {
+    background: linear-gradient(45deg, #f8d12f, #f0a742);
+    border: none;
+    color: #1a1a2e;
+    box-shadow: 0 4px 12px rgba(240, 167, 66, 0.3);
+  }
+  
+  .buttonPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(240, 167, 66, 0.4);
+  }
+  
+  .buttonSecondary {
+    background: transparent;
+    border: 1px solid #f0a742;
+    color: #f0a742;
+  }
+  
+  .buttonSecondary:hover {
+    background: rgba(240, 167, 66, 0.1);
+  }
+  
+  /* Languages Grid */
+  .languagesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .languageItem {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem;
+  }
+  
+  .languageItem input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #f0a742;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .abilitiesGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .formActions {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .formActions button {
+      width: 100%;
+    }
+  
+    .creatorContent {
+      padding: 1.5rem;
+    }
+  
+    .stepsProgress::before {
+      display: none;
+    }
+  
+    .step::after {
+      display: none;
+    }
+  
+    .stepsProgress {
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+  /* Mevcut CSS kodunuza bu kısımları ekleyin */
+
+.pointsIndicator {
+  background: rgba(30, 30, 50, 0.6);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(240, 167, 66, 0.2);
+}
+
+.pointsLabel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.pointsValue {
+  color: #f0a742;
+  font-size: 1.1rem;
+}
+
+.pointsBar {
+  height: 8px;
+  background: rgba(20, 20, 35, 0.7);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pointsFill {
+  height: 100%;
+  background: linear-gradient(90deg, #f8d12f, #f0a742);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Irksal bonusları göstermek için yeni stiller */
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 2px;
+}
+
+.totalScore {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  border-top: 1px solid rgba(240, 167, 66, 0.3);
+  padding-top: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.traitsList,
+.abilitiesList {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.abilitiesList li {
+  margin-bottom: 0.5rem;
+}
+
+.abilitiesList strong {
+  color: #f0a742;
+}
+
+/* Yeni ability stili - dosyanın sonuna ekleyin */
+
+
+
+
+
+
+
+.abilitySummaryItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+.abilityDetails {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 0.2rem 0;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 2px;
+}
+
+.abilityMod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.modifierLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modifierValue {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f0a742;
+}
+
+/* Eksik olabilecek CSS stillerini ekleyin (dosyanın sonuna) */
+
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.backgroundText {
+  color: #ccc;
+  font-style: italic;
+  line-height: 1.6;
+}
+/* Dosyanın sonuna bu CSS kodlarını ekleyin */
+
+
+
+
+
+
+.abilitySummaryItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(240, 167, 66, 0.3);
+}
+
+
+.abilityTotal {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.abilityBreakdown {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.2rem 0;
+  opacity: 0.8;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+.abilityMod {
+  margin-top: 0.5rem;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  border-top: 1px solid rgba(240, 167, 66, 0.2);
+}
+
+.modifierValue {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f0a742;
+}
+
+/* Diğer bölüm stilleri */
+.traitsList,
+.abilitiesList,
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.abilitiesList li,
+.languagesList li {
+  margin-bottom: 0.6rem;
+}
+
+.abilitiesList strong {
+  color: #f0a742;
+  font-weight: 600;
+}
+
+.backgroundText {
+  color: #ddd;
+  font-style: italic;
+  line-height: 1.7;
+  background: rgba(20, 20, 35, 0.4);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid rgba(240, 167, 66, 0.4);
+}
+
+/* Başlık stillerini daha belirgin hale getirme */
+
+
+
+/* Ability kartlarını iyileştirme */
+
+
+
+
+.abilitySummaryItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(240, 167, 66, 0.4);
+}
+
+
+
+
+.abilityDetails {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.2rem 0;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+.abilityMod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(240, 167, 66, 0.2);
+}
+
+.modifierLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modifierValue {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #f0a742;
+}
+
+/* Liste stillerini iyileştirme */
+.traitsList,
+.abilitiesList,
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.8rem;
+  margin-bottom: 2rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.abilitiesList li,
+.languagesList li {
+  margin-bottom: 0.8rem;
+}
+
+.abilitiesList strong {
+  color: #f0a742;
+  font-weight: 600;
+}
+/* Başlık stillerini daha belirgin hale getirme */
+
+
+/* Ability kartlarını iyileştirme */
+
+
+
+
+.abilitySummaryItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-color: rgba(240, 167, 66, 0.4);
+}
+
+
+
+
+
+
+
+.abilityDetails {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.2rem 0;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #f0a742;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+.abilityMod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(240, 167, 66, 0.2);
+}
+
+.modifierLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modifierValue {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #f0a742;
+}
+
+/* Liste stillerini iyileştirme */
+.traitsList,
+.abilitiesList,
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.8rem;
+  margin-bottom: 2rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.abilitiesList li,
+.languagesList li {
+  margin-bottom: 0.8rem;
+}
+
+.abilitiesList strong {
+  color: #f0a742;
+  font-weight: 600;
+}
+/* Başlık stillerini daha belirgin ve turuncu yapma */
+
+
+
+
+
+
+.abilityDetails {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.3rem 0;
+  height: 20px;  /* Sabit yükseklik eklendi */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #ff9800;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+.abilityMod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  margin-top: 0.6rem;
+  border-top: 1px solid rgba(240, 167, 66, 0.2);
+  min-width: 60px;  /* Minimum genişlik eklendi */
+}
+
+.modifierLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modifierValue {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* Yetenek kartlarının konteyneri için grid düzenlemesi */
+
+
+.sectionHeader {
+  margin: 2rem 0 1rem;
+  color: #ff9800; /* Turuncu renk */
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid rgba(255, 152, 0, 0.4); /* Turuncu transparant alt çizgi */
+  padding-bottom: 0.6rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.sectionHeader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 60px;
+  height: 2px;
+  background-color: #ff9800; /* Turuncu renk */
+}
+
+.abilitySummaryItem {
+  background: rgba(30, 30, 50, 0.7);
+  border-radius: 10px;
+  padding: 1.5rem 1rem;  /* Padding arttırıldı */
+  text-align: center;
+  border: 1px solid rgba(240, 167, 66, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+  min-width: 100px;  /* Minimum genişlik eklendi */
+  min-height: 140px; /* Minimum yükseklik eklendi */
+}
+
+.abilityName {
+  font-weight: 700;
+  color: #ff9800;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.7rem;  /* Boşluk arttırıldı */
+}
+
+.abilityValue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.7rem;  /* Boşluk arttırıldı */
+}
+
+.abilityTotal {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;  /* Satır yüksekliği düzenlendi */
+  margin-bottom: 0.4rem;
+}
+
+.abilityDetails {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 0.3rem 0;
+  height: 20px;  /* Sabit yükseklik eklendi */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.racialBonus {
+  font-size: 0.9rem;
+  color: #ff9800;
+  margin-left: 3px;
+  font-weight: 600;
+}
+
+.abilityMod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(20, 20, 35, 0.5);
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  margin-top: 0.6rem;
+  border-top: 1px solid rgba(240, 167, 66, 0.2);
+  min-width: 60px;  /* Minimum genişlik eklendi */
+}
+
+.modifierLabel {
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modifierValue {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* Yetenek kartlarının konteyneri için grid düzenlemesi */
+.abilitiesSummary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 1.5rem;  /* Yatay ve dikey boşluk */
+  margin-bottom: 2rem;
+}
+
+.traitsList,
+.abilitiesList,
+.languagesList {
+  list-style-type: disc;
+  padding-left: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.abilitiesList li,
+.languagesList li {
+  margin-bottom: 0.6rem;
+}
+
+.abilitiesList strong {
+  color: #ff9800;
+  font-weight: 600;
+}
+/* Spell Selection Styles */
+.spellSelectionContainer {
+  margin-bottom: 2rem;
+}
+
+.cantripSection,
+.spellSelectionSection {
+  background: rgba(30, 30, 45, 0.7);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+
+
+
+
+.spellSelectionSection .spellCard {
+  cursor: pointer;
+}
+
+.spellSelectionSection .spellCard:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.spellCard.selected {
+  background: rgba(var(--accent-color-rgb), 0.2);
+  border-color: var(--accent-color);
+}
+
+.spellSchool {
+  font-style: italic;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.spellDescription {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.spellSelectionSummary {
+  margin-top: 1rem;
+  text-align: right;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+/* Spell Selection Styles */
+.spellcasterNote {
+  background-color: rgba(240, 167, 66, 0.1);
+  border-left: 3px solid #f0a742;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.spellsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+
+
+
+
+
+
+.spellCard.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  background: #f0a742;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a2e;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.autoSpell {
+  border: 1px dashed rgba(240, 167, 66, 0.5) !important;
+}
+
+.autoSpell::before {
+  content: 'Auto';
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: rgba(240, 167, 66, 0.8);
+  color: #1a1a2e;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.spellHeader {
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+}
+
+.spellName {
+  font-size: 1.2rem;
+  color: #f0a742;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.spellSchool {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+.ritualTag, .concentrationTag {
+  color: #f0a742;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.spellMeta {
+  background: rgba(20, 20, 35, 0.6);
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.spellMetaItem {
+  margin-bottom: 0.4rem;
+}
+
+.spellMetaItem:last-child {
+  margin-bottom: 0;
+}
+
+.metaLabel {
+  color: #aaa;
+  margin-right: 0.4rem;
+}
+
+.spellDescription {
+  color: #ddd;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.spellSelectionCounter {
+  background: rgba(20, 20, 35, 0.7);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(240, 167, 66, 0.15);
+  font-weight: 500;
+  color: #ccc;
+}
+
+.spellCountValue {
+  color: #f0a742;
+  font-weight: 600;
+}
+
+.autoSpellNote {
+  font-style: italic;
+  color: #f0a742;
+}
+
+.spellsSubheader {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  margin: 1.5rem 0 0.8rem;
+  border-bottom: 1px solid rgba(240, 167, 66, 0.2);
+  padding-bottom: 0.4rem;
+}
+
+.spellsList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.spellItem {
+  background: rgba(30, 30, 50, 0.5);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid rgba(240, 167, 66, 0.4);
+}
+
+.autoSpellIcon {
+  font-size: 0.9rem;
+  vertical-align: super;
+  margin-left: 5px;
+  color: #f0a742;
+}
+
+.selectionIndicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 30px 30px 0;
+  border-color: transparent transparent transparent transparent;
+  transition: border-color 0.2s ease;
+}
+
+.selected .selectionIndicator {
+  border-color: transparent #f0a742 transparent transparent;
+}
+
+/* Add these styles to the end of your CSS file */
+
+.spellsSection {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1.5rem;
+}
+
+.spellList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.spellCard {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.spellCard:hover {
+  border-color: #9c27b0;
+  box-shadow: 0 3px 8px rgba(156, 39, 176, 0.2);
+}
+
+.spellCard.selected {
+  background-color: rgba(156, 39, 176, 0.08);
+  border-color: #9c27b0;
+  box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
+}
+
+.spellCard.defaultSpell {
+  border-color: #4caf50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  cursor: default;
+}
+
+.spellHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.spellHeader h4 {
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.defaultTag {
+  background-color: #4caf50;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.ritualTag {
+  background-color: #ff9800;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.spellDetails {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.spellDetails p {
+  margin: 2px 0;
+}
+
+.concentration {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.spellDescription {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.spellsSubheader {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #673ab7;
+}
+
+.spellsList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.spellItem {
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted #ddd;
+}
+
+.spellName {
+  font-weight: 600;
+  display: block;
+}
+
+.spellMeta {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.autoSpellIcon {
+  color: #ffc107;
+  margin-left: 5px;
+}
