@@ -642,5 +642,37 @@
   font-weight: bold;
   color: #f0a742;
 }
+/* Spell display styles for character detail */
+.spellsSubheader {
+  color: #ddd;
+  font-size: 1.1rem;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+
+.spellsList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 2rem;
+}
+
+.spellItem {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(30, 30, 50, 0.4);
+  border-radius: 4px;
+}
+
+.spellName {
+  color: #f0a742;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.spellMeta {
+  font-size: 0.9rem;
+  color: #aaa;
+  font-style: italic;
+}
 
 /* Mevcut stillerinizi buradan itibaren koruyun */

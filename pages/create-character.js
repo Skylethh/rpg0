@@ -10,7 +10,6 @@ export default function CreateCharacter() {
   const rulebook = initializeRuleBook();
   const [step, setStep] = useState(1);
 
-  // Bu kısmı ekleyin (MAX_ABILITY_POINTS ve usedAbilityPoints state'i)
   const MAX_ABILITY_POINTS = 24;
   const [usedAbilityPoints, setUsedAbilityPoints] = useState(0);
 
@@ -30,8 +29,8 @@ export default function CreateCharacter() {
     languages: [],
     background: '',
     equipment: [],
-    cantrips: [], // Added for cantrips
-    spells: []    // Added for level 1 spells
+    cantrips: [], 
+    spells: []
   });
 
   // Calculate if character is a spellcaster
@@ -47,13 +46,13 @@ export default function CreateCharacter() {
   // Başlangıçta kullanılan puanları hesapla
   useEffect(() => {
     const initialPoints = Object.values(character.abilities).reduce(
-      (total, value) => total + (value - 8),  // 10 yerine 8
+      (total, value) => total + (value - 8),
       0
     );
     setUsedAbilityPoints(initialPoints);
   }, []);
 
-  // Step labels for the progress indicator - update to include spells step
+  // Step labels for the progress indicator
   const steps = [
     { num: 1, label: 'Basics' },
     { num: 2, label: 'Abilities' },
@@ -124,7 +123,7 @@ export default function CreateCharacter() {
   };
 
   const saveCharacter = () => {
-    // Save character to local storage or database
+    // Save character to local storage
     const savedCharacters = JSON.parse(localStorage.getItem('characters') || '[]');
     const newCharacter = {
       ...character,
@@ -144,6 +143,202 @@ export default function CreateCharacter() {
   // Format modifier with + or - sign
   const formatModifier = (mod) => {
     return mod >= 0 ? `+${mod}` : mod.toString();
+  };
+
+  // SpellSelection component with auto-selected cantrips and one level 1 spell
+  const SpellSelection = ({ character, rulebook, updateCharacter }) => {
+    const [selectedCantrips, setSelectedCantrips] = useState([]);
+    const [selectedSpells, setSelectedSpells] = useState([]);
+    
+    // Get class data
+    const classData = rulebook.classes.find(c => c.id === character.class);
+    const className = classData?.name || '';
+    
+    // Filter spells by class using case-insensitive class name comparison
+    const availableCantrips = rulebook.spells.filter(spell => {
+      const isCorrectLevel = spell.level === 0;
+      const matchesClass = spell.classes.some(spellClass => 
+        spellClass.toLowerCase() === className?.toLowerCase()
+      );
+      
+      console.log(`Spell ${spell.name}: level=${spell.level}, classes=${spell.classes}, matches=${matchesClass}`);
+      
+      return isCorrectLevel && matchesClass;
+    });
+    
+    const availableLevel1Spells = rulebook.spells.filter(spell => {
+      const isCorrectLevel = spell.level === 1;
+      const matchesClass = spell.classes.some(spellClass => 
+        spellClass.toLowerCase() === className?.toLowerCase()
+      );
+      
+      return isCorrectLevel && matchesClass;
+    });
+
+    console.log(`Filtering spells for class: ${character.class} (${className})`);
+console.log(`Available cantrips: ${availableCantrips.length}`);
+console.log(`Available level 1 spells: ${availableLevel1Spells.length}`);
+
+    // Console log to debug spell filtering
+    console.log('Class name for filtering:', className);
+    console.log('Available cantrips:', availableCantrips);
+    console.log('Available level 1 spells:', availableLevel1Spells);
+
+    // Get max spells by class
+    const getMaxSpellsConfig = () => {
+      switch(character.class) {
+        case 'wizard':
+          return { cantrips: 3, level1: 1 };
+        case 'druid':
+          return { cantrips: 2, level1: 1 };
+        case 'bard':
+          return { cantrips: 2, level1: 1 };
+        case 'paladin':
+          return { cantrips: 0, level1: 1 };
+        default:
+          return { cantrips: 0, level1: 0 };
+      }
+    };
+
+    const maxSpells = getMaxSpellsConfig();
+    
+    // Auto-select cantrips on component mount
+    useEffect(() => {
+      console.log('SpellSelection component initialized');
+      
+      // If character already has cantrips selected, use those
+      if (character.cantrips?.length > 0) {
+        setSelectedCantrips(character.cantrips);
+      } 
+      // Otherwise automatically select cantrips
+      else if (availableCantrips.length > 0) {
+        // Select first available cantrips up to the class maximum
+        const autoCantrips = availableCantrips
+          .slice(0, maxSpells.cantrips)
+          .map(spell => spell.id);
+        
+        setSelectedCantrips(autoCantrips);
+        // Update character state with auto-selected cantrips
+        updateCharacter('cantrips', autoCantrips);
+      }
+      
+      // If character already has level 1 spells selected, use those
+      if (character.spells?.length > 0) {
+        setSelectedSpells(character.spells);
+      }
+    }, [character.class, availableCantrips.length]);
+    
+    // Toggle a level 1 spell (only allow 1 at a time)
+    const toggleSpell = (spellId) => {
+      console.log('Toggling spell:', spellId);
+      
+      if (selectedSpells.includes(spellId)) {
+        // Deselect the spell
+        const newSelection = selectedSpells.filter(id => id !== spellId);
+        setSelectedSpells(newSelection);
+        updateCharacter('spells', newSelection);
+      } else {
+        // Select the spell (replacing any previously selected one)
+        const newSelection = [spellId];
+        setSelectedSpells(newSelection);
+        updateCharacter('spells', newSelection);
+      }
+    };
+    
+    return (
+      <div className={styles.creatorStep}>
+        <h2>Choose Your Spells</h2>
+        <p>As a {className}, you have access to magical abilities.</p>
+        
+        {availableCantrips.length > 0 && (
+          <div className={styles.spellsSection}>
+            <h3>Cantrips (Level 0)</h3>
+            <p>Cantrips are automatically selected for your character. These are minor spells you can cast at will.</p>
+            
+            <div className={styles.spellList}>
+              {availableCantrips.slice(0, maxSpells.cantrips).map(spell => (
+                <div 
+                  key={spell.id} 
+                  className={`${styles.spellCard} ${styles.selected} ${styles.autoSelected}`}
+                >
+                  <div className={styles.spellHeader}>
+                    <h4>{spell.name}</h4>
+                    <span className={styles.autoSelectedTag}>Auto-Selected</span>
+                  </div>
+                  <div className={styles.spellDetails}>
+                    <p>{spell.school}</p>
+                    <p>Casting Time: {spell.castingTime}</p>
+                    <p>Range: {spell.range}</p>
+                  </div>
+                  <p className={styles.spellDescription}>
+                    {spell.description.length > 100
+                      ? `${spell.description.substring(0, 100)}...`
+                      : spell.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {availableLevel1Spells.length > 0 && (
+          <div className={styles.spellsSection}>
+            <h3>Level 1 Spells</h3>
+            <p>You can select 1 level 1 spell for your character.</p>
+            <div className={styles.spellSelectionSummary}>
+              Selected: {selectedSpells.length}/{maxSpells.level1}
+            </div>
+            
+            <div className={styles.spellList}>
+              {availableLevel1Spells.map(spell => {
+                const isSelected = selectedSpells.includes(spell.id);
+                
+                return (
+                  <div 
+                    key={spell.id} 
+                    className={`${styles.spellCard} ${isSelected ? styles.selected : ''}`}
+                    onClick={() => toggleSpell(spell.id)}
+                  >
+                    <div className={styles.spellHeader}>
+                      <h4>{spell.name}</h4>
+                      {spell.ritual && <span className={styles.ritualTag}>Ritual</span>}
+                    </div>
+                    <div className={styles.spellDetails}>
+                      <p>{spell.school}</p>
+                      <p>Casting Time: {spell.castingTime}</p>
+                      <p>Range: {spell.range}</p>
+                      {spell.concentration && <p className={styles.concentration}>Concentration</p>}
+                    </div>
+                    <p className={styles.spellDescription}>
+                      {spell.description.length > 100
+                        ? `${spell.description.substring(0, 100)}...`
+                        : spell.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        
+        <div className={styles.formActions}>
+          <button 
+            type="button" 
+            onClick={prevStep}
+            className={styles.buttonSecondary}
+          >
+            Back
+          </button>
+          <button 
+            type="button" 
+            className={styles.buttonPrimary}
+            onClick={nextStep}
+          >
+            Next: Review Character
+          </button>
+        </div>
+      </div>
+    );
   };
 
   // Character summary for final review
@@ -307,182 +502,6 @@ export default function CreateCharacter() {
     );
   };
 
-  // SpellSelection bileşeni (dosya içine taşıdık)
-  const SpellSelection = ({ character, rulebook, updateCharacter }) => {
-    const [selectedCantrips, setSelectedCantrips] = useState([]);
-    const [selectedSpells, setSelectedSpells] = useState([]);
-    const [maxCantrips, setMaxCantrips] = useState(0);
-    const [maxSpells, setMaxSpells] = useState(0);
-    
-    // Get spells available for the character's class
-    const classData = rulebook.classes.find(c => c.id === character.class);
-    
-    // Filter spells by class and level
-    const availableCantrips = rulebook.spells
-      .filter(spell => spell.level === 0 && spell.classes.includes(character.class));
-    
-    const availableLevel1Spells = rulebook.spells
-      .filter(spell => spell.level === 1 && spell.classes.includes(character.class));
-  
-    // Default cantrips per class
-    const defaultCantrips = {
-      'wizard': ['mage_hand', 'prestidigitation'],
-      'druid': ['druidcraft', 'produce_flame'],
-      'bard': ['vicious_mockery', 'minor_illusion'],
-      'paladin': []
-    };
-  
-    // Set spell limits based on class
-    useEffect(() => {
-      if (character.class === 'wizard') {
-        setMaxCantrips(3); // Wizard starts with 3 cantrips
-        setMaxSpells(2);  // Wizard prepares int mod + level spells, minimum 1
-      } else if (character.class === 'druid') {
-        setMaxCantrips(2); // Druids start with 2 cantrips
-        setMaxSpells(1);  // Druids prepare wis mod + level spells, minimum 1
-      } else if (character.class === 'bard') {
-        setMaxCantrips(2); // Bards start with 2 cantrips
-        setMaxSpells(4);  // Bards know 4 spells at level 1
-      } else if (character.class === 'paladin') {
-        setMaxCantrips(0); // Paladins don't get cantrips
-        setMaxSpells(1);  // Paladins prepare cha mod + half level spells, minimum 1
-      }
-      
-      // Initialize with default cantrips for class and any previously selected spells
-      const classDefaultCantrips = defaultCantrips[character.class] || [];
-      
-      // Use existing selections if available, otherwise use defaults
-      setSelectedCantrips(character.cantrips?.length ? character.cantrips : classDefaultCantrips);
-      setSelectedSpells(character.spells || []);
-      
-    }, [character.class]);
-    
-    // Update character when selected spells change
-    useEffect(() => {
-      updateCharacter('cantrips', selectedCantrips);
-      updateCharacter('spells', selectedSpells);
-    }, [selectedCantrips, selectedSpells]);
-  
-    const toggleCantrip = (spellId) => {
-      if (selectedCantrips.includes(spellId)) {
-        setSelectedCantrips(prev => prev.filter(id => id !== spellId));
-      } else {
-        // Check if adding would exceed maximum, and this isn't a default cantrip
-        if (selectedCantrips.length >= maxCantrips && 
-            !defaultCantrips[character.class]?.includes(spellId)) {
-          return;
-        }
-        setSelectedCantrips(prev => [...prev, spellId]);
-      }
-    };
-  
-    const toggleSpell = (spellId) => {
-      if (selectedSpells.includes(spellId)) {
-        setSelectedSpells(prev => prev.filter(id => id !== spellId));
-      } else {
-        if (selectedSpells.length >= maxSpells) {
-          return;
-        }
-        setSelectedSpells(prev => [...prev, spellId]);
-      }
-    };
-  
-    const isDefaultCantrip = (spellId) => {
-      return defaultCantrips[character.class]?.includes(spellId);
-    };
-  
-    return (
-      <div className={styles.creatorStep}>
-        <h2>Choose Your Spells</h2>
-        <p>As a {classData?.name}, you have access to magical abilities. Select your spells wisely.</p>
-        
-        {availableCantrips.length > 0 && (
-          <div className={styles.spellsSection}>
-            <h3>Cantrips (Level 0)</h3>
-            <p>You can select up to {maxCantrips} cantrips. Default cantrips for your class are pre-selected.</p>
-            
-            <div className={styles.spellList}>
-              {availableCantrips.map(spell => {
-                const isSelected = selectedCantrips.includes(spell.id);
-                const isDefault = isDefaultCantrip(spell.id);
-                
-                return (
-                  <div 
-                    key={spell.id} 
-                    className={`${styles.spellCard} ${isSelected ? styles.selected : ''} ${isDefault ? styles.defaultSpell : ''}`}
-                    onClick={() => isDefault ? null : toggleCantrip(spell.id)}
-                  >
-                    <div className={styles.spellHeader}>
-                      <h4>{spell.name}</h4>
-                      {isDefault && <span className={styles.defaultTag}>Class Cantrip</span>}
-                    </div>
-                    <div className={styles.spellDetails}>
-                      <p>{spell.school}</p>
-                      <p>Casting Time: {spell.castingTime}</p>
-                      <p>Range: {spell.range}</p>
-                    </div>
-                    <p className={styles.spellDescription}>{spell.description.substring(0, 100)}...</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        
-        {availableLevel1Spells.length > 0 && (
-          <div className={styles.spellsSection}>
-            <h3>Level 1 Spells</h3>
-            <p>You can select up to {maxSpells} level 1 spells.</p>
-            
-            <div className={styles.spellList}>
-              {availableLevel1Spells.map(spell => {
-                const isSelected = selectedSpells.includes(spell.id);
-                
-                return (
-                  <div 
-                    key={spell.id} 
-                    className={`${styles.spellCard} ${isSelected ? styles.selected : ''}`}
-                    onClick={() => toggleSpell(spell.id)}
-                  >
-                    <div className={styles.spellHeader}>
-                      <h4>{spell.name}</h4>
-                      {spell.ritual && <span className={styles.ritualTag}>Ritual</span>}
-                    </div>
-                    <div className={styles.spellDetails}>
-                      <p>{spell.school}</p>
-                      <p>Casting Time: {spell.castingTime}</p>
-                      <p>Range: {spell.range}</p>
-                      {spell.concentration && <p className={styles.concentration}>Concentration</p>}
-                    </div>
-                    <p className={styles.spellDescription}>{spell.description.substring(0, 100)}...</p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        
-        <div className={styles.formActions}>
-          <button 
-            type="button" 
-            onClick={prevStep}
-            className={styles.buttonSecondary}
-          >
-            Back
-          </button>
-          <button 
-            type="button" 
-            className={styles.buttonPrimary}
-            onClick={nextStep}
-            disabled={selectedSpells.length === 0}
-          >
-            Next: Review Character
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   // Render the step content based on current step
   const renderStepContent = () => {
     switch (step) {
@@ -527,9 +546,7 @@ export default function CreateCharacter() {
                 <h4>Racial Traits</h4>
                 <ul>
                   {rulebook.races.find(r => r.id === character.race)?.traits.map(trait => (
-                    <li key={trait}>
-                      {trait}
-                    </li>
+                    <li key={trait}>{trait}</li>
                   ))}
                 </ul>
               </div>
@@ -567,7 +584,7 @@ export default function CreateCharacter() {
                 {isSpellcaster() && (
                   <div className={styles.spellcasterNote}>
                     <h4>Spellcasting</h4>
-                    <p>As a {rulebook.classes.find(c => c.id === character.class)?.name}, you have the ability to cast spells. You will be able to select your spells after setting up your character's basic attributes.</p>
+                    <p>As a {rulebook.classes.find(c => c.id === character.class)?.name}, you have the ability to cast spells. You will be able to select your spells after setting up your character's abilities and skills.</p>
                   </div>
                 )}
               </div>
@@ -599,7 +616,6 @@ export default function CreateCharacter() {
             <h2>Ability Scores</h2>
             <p>Distribute your character's ability scores. Starting from 8, you can increase each ability up to 15.</p>
             
-            {/* Puan göstergesini güncelleyin */}
             <div className={styles.pointsIndicator}>
               <div className={styles.pointsLabel}>
                 Available Points: <span className={styles.pointsValue}>{MAX_ABILITY_POINTS - usedAbilityPoints}</span>/{MAX_ABILITY_POINTS}
@@ -722,7 +738,7 @@ export default function CreateCharacter() {
         );
       
       case 4:
-        // If spellcaster, show spell selection, otherwise show character review
+        // If spellcaster, show spell selection, otherwise show character summary
         return isSpellcaster() ? (
           <SpellSelection
             character={character}

@@ -118,7 +118,7 @@ rulebook.addRace(new Race(
       { name: "Lay on Hands", level: 1, description: "Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5." }
     ],
     ["martial weapon and shield OR two martial weapons", "javelins OR any simple melee weapon", "priest's pack OR explorer's pack", "chain mail", "holy symbol"],
-    { ability: "charisma", cantripsKnown: 0, prepared: true, level: 2 }
+    { ability: "charisma", cantripsKnown: 2, prepared: true, level: 1 } // cantrip kullanabilir hale getirdik
   ));
   
   // 5. ROGUE
@@ -394,9 +394,24 @@ rulebook.addRace(new Race(
     "Touch", // range
     { verbal: true, somatic: true, material: null }, // components
     "Instantaneous", // duration
-    ["Bard", "Druid", "Paladin"], // balanced distribution
+    ["Bard", "Druid", "Paladin"], // classes - Paladin'in doğru yazımı
     false, // ritual
     false // concentration
+  ));
+
+  rulebook.addSpell(new Spell(
+    "bless",
+    "Bless",
+    "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or saving throw, it can roll a d4 and add the number to the result.",
+    1, // level
+    "enchantment", // school
+    "1 action", // casting time
+    "30 feet", // range
+    { verbal: true, somatic: true, material: "A sprinkling of holy water" }, // components
+    "Concentration, up to 1 minute", // duration
+    ["Paladin", "Cleric"], // classes - Adding Paladin
+    false, // ritual
+    true // concentration
   ));
   
   rulebook.addSpell(new Spell(
@@ -454,7 +469,7 @@ rulebook.addRace(new Race(
     "90 feet", // range
     { verbal: true, somatic: false, material: null }, // components
     "Concentration, up to 1 hour", // duration
-    ["Paladin"], // classes
+    ["Paladin"], // classes - Paladin'in doğru yazımı
     false, // ritual
     true // concentration
   ));
@@ -499,7 +514,7 @@ rulebook.addRace(new Race(
     "60 feet", // range
     { verbal: true, somatic: true, material: "A small parchment with holy text" }, // components
     "Concentration, up to 10 minutes", // duration
-    ["Paladin"], // classes
+    ["Paladin"], // classes - Paladin'in doğru yazımı
     false, // ritual
     true // concentration
   ));
